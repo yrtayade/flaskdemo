@@ -8,7 +8,11 @@ app.config.from_object(Config)
 db.init_app(app)
 
 with app.app_context():
-    db.create_all()
+    try:
+        db.create_all()
+        print("✅ Database connected successfully")
+    except Exception as e:
+        print(f"⚠️ Database connection error: {e}")
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
